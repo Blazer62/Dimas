@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio - LearnHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-200">
+          <h1 class="text-2xl font-bold text-blue-600">LearnHub</h1>
+          <p class="text-xs text-gray-500 mt-1">Platform Pembelajaran</p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+          <a
+            href="dashboard.html"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 4h4"
+              ></path>
+            </svg>
+            Dashboard
+          </a>
+          <a
+            href="materi.html"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-5.002-4.5-10.747-10-10.747z"
+              ></path>
+            </svg>
+            Materi Belajar
+          </a>
+          <a
+            href="portofolio.html"
+            class="nav-link nav-link-active flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+            Portofolio
+          </a>
+          <a
+            href="#"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+            onclick="toggleDarkMode()"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+            Dark Mode
+          </a>
+        </nav>
+
+        <!-- User Profile -->
+        <div class="border-t border-gray-200 p-4">
+          <div class="flex items-center">
+            <input
+              type="file"
+              id="profileImageInput"
+              accept="image/*"
+              class="hidden"
+              onchange="changeProfilePicture()"
+            />
+            <div
+              id="userAvatarContainer"
+              class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold cursor-pointer hover:opacity-80 transition overflow-hidden"
+              onclick="document.getElementById('profileImageInput').click()"
+              title="Klik untuk ubah foto profil"
+            >
+              <img
+                id="profileImage"
+                src=""
+                alt="Profile"
+                class="hidden w-full h-full object-cover"
+              />
+              <span id="userInitial">G</span>
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <p
+                class="text-sm font-semibold text-gray-900 truncate"
+                id="userNameDisplay"
+              >
+                Gusti Rizky
+              </p>
+              <button
+                onclick="logout()"
+                class="text-xs text-gray-500 hover:text-red-600 transition font-medium"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-auto">
+        <!-- Top Bar -->
+        <div
+          class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center"
+        >
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900">Portofolio Saya</h2>
+            <p class="text-sm text-gray-500 mt-1">
+              Koleksi proyek dan pencapaian pembelajaran
+            </p>
+          </div>
+          <button
+            onclick="openAddProjectModal()"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            Tambah Proyek
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8">
+          <!-- Profile Section -->
+          <div
+            class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mb-8"
+          >
+            <div class="flex items-start justify-between">
+              <div class="flex items-start">
+                <div
+                  class="w-24 h-24 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold text-3xl"
+                >
+                  <span id="avatarLarge">G</span>
+                </div>
+                <div class="ml-6">
+                  <h3
+                    class="text-2xl font-bold text-gray-900"
+                    id="portfolioName"
+                  >
+                    Gusti Rizky Ananda
+                  </h3>
+                  <p class="text-gray-600 mt-2">
+                    Siswa XI PPLG B - Fokus pada Frontend Development
+                  </p>
+                  <div class="flex space-x-4 mt-4">
+                    <div class="text-center">
+                      <p
+                        class="text-2xl font-bold text-blue-600"
+                        id="totalProjects"
+                      >
+                        0
+                      </p>
+                      <p class="text-xs text-gray-500">Proyek</p>
+                    </div>
+                    <div class="text-center">
+                      <p
+                        class="text-2xl font-bold text-green-600"
+                        id="totalXPPortfolio"
+                      >
+                        0
+                      </p>
+                      <p class="text-xs text-gray-500">XP</p>
+                    </div>
+                    <div class="text-center">
+                      <p
+                        class="text-2xl font-bold text-purple-600"
+                        id="totalMaterials"
+                      >
+                        0
+                      </p>
+                      <p class="text-xs text-gray-500">Materi Selesai</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Projects Grid -->
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Proyek</h3>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            id="projectsContainer"
+          >
+            <!-- Projects akan dimuat dari JavaScript -->
+          </div>
+
+          <!-- Empty State -->
+          <div id="emptyState" class="text-center py-12">
+            <svg
+              class="w-16 h-16 mx-auto text-gray-300 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              ></path>
+            </svg>
+            <p class="text-gray-500 text-lg">
+              Belum ada proyek. Mulai tambahkan proyek Anda sekarang!
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Add Project Modal -->
+    <div
+      id="addProjectModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+    >
+      <div class="bg-white rounded-xl max-w-md w-full shadow-2xl p-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Tambah Proyek</h2>
+
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Nama Proyek</label
+            >
+            <input
+              type="text"
+              id="projectName"
+              placeholder="Dashboard E-Learning"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Deskripsi</label
+            >
+            <textarea
+              id="projectDesc"
+              placeholder="Jelaskan proyek Anda..."
+              rows="4"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Teknologi</label
+            >
+            <input
+              type="text"
+              id="projectTech"
+              placeholder="HTML, CSS, JavaScript"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2"
+              >Link Proyek</label
+            >
+            <input
+              type="url"
+              id="projectLink"
+              placeholder="https://..."
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
+        </div>
+
+        <div class="flex space-x-3 mt-6">
+          <button
+            onclick="closeAddProjectModal()"
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium"
+          >
+            Batal
+          </button>
+          <button
+            onclick="saveProject()"
+            class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      // Load portfolio data
+      function loadPortfolio() {
+        const stats = getUserStats();
+        document.getElementById("totalProjects").innerText = stats.projects
+          ? stats.projects.length
+          : 0;
+        document.getElementById("totalXPPortfolio").innerText = stats.xp || 0;
+        document.getElementById("totalMaterials").innerText =
+          stats.materiSelesai || 0;
+        renderProjects();
+      }
+
+      function renderProjects() {
+        const stats = getUserStats();
+        const projects = stats.projects || [];
+        const container = document.getElementById("projectsContainer");
+        const emptyState = document.getElementById("emptyState");
+
+        if (projects.length === 0) {
+          container.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+
+        emptyState.classList.add("hidden");
+        container.innerHTML = projects
+          .map(
+            (project, index) => `
+          <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition">
+            <div class="h-32 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+            <div class="p-6">
+              <h3 class="font-bold text-gray-900 mb-2">${project.name}</h3>
+              <p class="text-sm text-gray-600 mb-3">${project.desc}</p>
+              <div class="flex flex-wrap gap-2 mb-4">
+                ${project.tech
+                  .split(",")
+                  .map(
+                    (t) =>
+                      `<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">${t.trim()}</span>`,
+                  )
+                  .join("")}
+              </div>
+              <div class="flex space-x-2">
+                <a href="${project.link}" target="_blank" class="flex-1 px-3 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition text-center font-medium">
+                  Lihat Demo
+                </a>
+                <button onclick="deleteProject(${index})" class="px-3 py-2 bg-red-100 text-red-700 text-sm rounded hover:bg-red-200 transition font-medium">
+                  Hapus
+                </button>
+              </div>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      function openAddProjectModal() {
+        document.getElementById("addProjectModal").classList.remove("hidden");
+      }
+
+      function closeAddProjectModal() {
+        document.getElementById("addProjectModal").classList.add("hidden");
+        document.getElementById("projectName").value = "";
+        document.getElementById("projectDesc").value = "";
+        document.getElementById("projectTech").value = "";
+        document.getElementById("projectLink").value = "";
+      }
+
+      function saveProject() {
+        const name = document.getElementById("projectName").value;
+        const desc = document.getElementById("projectDesc").value;
+        const tech = document.getElementById("projectTech").value;
+        const link = document.getElementById("projectLink").value;
+
+        if (!name || !desc || !tech || !link) {
+          alert("Semua field harus diisi!");
+          return;
+        }
+
+        const stats = getUserStats();
+        if (!stats.projects) stats.projects = [];
+
+        stats.projects.push({ name, desc, tech, link });
+        saveUserStats(stats);
+
+        closeAddProjectModal();
+        loadPortfolio();
+        showNotification("Proyek berhasil ditambahkan!", "success");
+      }
+
+      function deleteProject(index) {
+        if (confirm("Yakin ingin menghapus proyek ini?")) {
+          const stats = getUserStats();
+          stats.projects.splice(index, 1);
+          saveUserStats(stats);
+          loadPortfolio();
+          showNotification("Proyek berhasil dihapus", "success");
+        }
+      }
+
+      // Initial load
+      document.addEventListener("DOMContentLoaded", loadPortfolio);
+    </script>
+  </body>
+</html>
