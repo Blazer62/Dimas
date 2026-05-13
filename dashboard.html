@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - LearnHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-200">
+          <h1 class="text-2xl font-bold text-blue-600">LearnHub</h1>
+          <p class="text-xs text-gray-500 mt-1">Platform Pembelajaran</p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+          <a
+            href="dashboard.html"
+            class="nav-link nav-link-active flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 4h4"
+              ></path>
+            </svg>
+            Dashboard
+          </a>
+          <a
+            href="materi.html"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-5.002-4.5-10.747-10-10.747z"
+              ></path>
+            </svg>
+            Materi Belajar
+          </a>
+          <a
+            href="portofolio.html"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+            Portofolio
+          </a>
+          <a
+            href="#"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+            onclick="toggleDarkMode()"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+            Dark Mode
+          </a>
+        </nav>
+
+        <!-- User Profile -->
+        <div class="border-t border-gray-200 p-4">
+          <div class="flex items-center">
+            <input
+              type="file"
+              id="profileImageInput"
+              accept="image/*"
+              class="hidden"
+              onchange="changeProfilePicture()"
+            />
+            <div
+              id="userAvatarContainer"
+              class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold cursor-pointer hover:opacity-80 transition overflow-hidden"
+              onclick="document.getElementById('profileImageInput').click()"
+              title="Klik untuk ubah foto profil"
+            >
+              <img
+                id="profileImage"
+                src=""
+                alt="Profile"
+                class="hidden w-full h-full object-cover"
+              />
+              <span id="userInitial">G</span>
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <p
+                class="text-sm font-semibold text-gray-900 truncate"
+                id="userNameDisplay"
+              >
+                Gusti Rizky
+              </p>
+              <button
+                onclick="logout()"
+                class="text-xs text-gray-500 hover:text-red-600 transition font-medium"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-auto">
+        <!-- Top Bar -->
+        <div
+          class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center"
+        >
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900">Dashboard Utama</h2>
+            <p class="text-sm text-gray-500 mt-1">Selamat datang kembali</p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <input
+              type="text"
+              placeholder="Cari materi..."
+              class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+            <div class="w-10 h-10 rounded-full bg-gray-200"></div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8">
+          <!-- Statistics Grid -->
+          <div class="grid grid-cols-3 gap-6 mb-8">
+            <!-- Total XP -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition"
+            >
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-gray-500 text-sm font-medium">Total XP</p>
+                  <p class="text-3xl font-bold text-blue-600 mt-2" id="totalXP">
+                    0
+                  </p>
+                  <p class="text-xs text-gray-400 mt-2">dari target 5000</p>
+                </div>
+                <div
+                  class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-blue-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Materi Selesai -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition"
+            >
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-gray-500 text-sm font-medium">
+                    Materi Diselesaikan
+                  </p>
+                  <p
+                    class="text-3xl font-bold text-green-600 mt-2"
+                    id="materiDone"
+                  >
+                    0
+                  </p>
+                  <p class="text-xs text-gray-400 mt-2">dari 12 materi</p>
+                </div>
+                <div
+                  class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Peringkat -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition"
+            >
+              <div class="flex justify-between items-start">
+                <div>
+                  <p class="text-gray-500 text-sm font-medium">Peringkat</p>
+                  <p
+                    class="text-3xl font-bold text-purple-600 mt-2"
+                    id="peringkat"
+                  >
+                    #1
+                  </p>
+                  <p class="text-xs text-gray-400 mt-2">tingkat sedang</p>
+                </div>
+                <div
+                  class="w-12 h-12 rounded-lg bg-purple-100 flex items-center justify-center"
+                >
+                  <svg
+                    class="w-6 h-6 text-purple-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Level & Progress -->
+          <div
+            class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-lg font-bold text-gray-900">Progres Level</h3>
+              <span class="text-2xl font-bold text-blue-600" id="levelText"
+                >Level 1</span
+              >
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+              <div
+                id="progressBar"
+                class="bg-gradient-to-r from-blue-600 to-indigo-600 h-3 rounded-full transition-all duration-500"
+                style="width: 10%"
+              ></div>
+            </div>
+            <p class="text-sm text-gray-600 mt-3">
+              <span id="currentXP">0</span> XP dari
+              <span id="nextLevelXP">500</span> XP
+            </p>
+          </div>
+
+          <!-- Leaderboard -->
+          <h3 class="text-lg font-bold text-gray-900 mb-4">Leaderboard</h3>
+          <div
+            class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+          >
+            <div class="divide-y divide-gray-200">
+              <div class="p-4 flex items-center hover:bg-blue-50 transition">
+                <span class="text-lg font-bold text-yellow-500 w-8">1</span>
+                <div class="flex-1 ml-4">
+                  <p class="font-semibold text-gray-900">Ahmad Rizki</p>
+                  <p class="text-xs text-gray-500">Sedang Belajar</p>
+                </div>
+                <span class="font-bold text-blue-600">2850 XP</span>
+              </div>
+              <div class="p-4 flex items-center hover:bg-blue-50 transition">
+                <span class="text-lg font-bold text-gray-400 w-8">2</span>
+                <div class="flex-1 ml-4">
+                  <p class="font-semibold text-gray-900">Siti Nurhaliza</p>
+                  <p class="text-xs text-gray-500">Pemula</p>
+                </div>
+                <span class="font-bold text-blue-600">2450 XP</span>
+              </div>
+              <div class="p-4 flex items-center hover:bg-blue-50 transition">
+                <span class="text-lg font-bold text-yellow-600 w-8">3</span>
+                <div class="flex-1 ml-4">
+                  <p class="font-semibold text-gray-900">Budi Santoso</p>
+                  <p class="text-xs text-gray-500">Menengah</p>
+                </div>
+                <span class="font-bold text-blue-600">2100 XP</span>
+              </div>
+              <div class="p-4 flex items-center bg-blue-50">
+                <span class="text-lg font-bold text-blue-600 w-8">4</span>
+                <div class="flex-1 ml-4">
+                  <p class="font-semibold text-gray-900">Gusti Rizky Ananda</p>
+                  <p class="text-xs text-gray-500">Anda</p>
+                </div>
+                <span class="font-bold text-blue-600" id="myLeaderboardXP"
+                  >950 XP</span
+                >
+              </div>
+              <div class="p-4 flex items-center hover:bg-blue-50 transition">
+                <span class="text-lg font-bold text-gray-400 w-8">5</span>
+                <div class="flex-1 ml-4">
+                  <p class="font-semibold text-gray-900">Rina Wijaya</p>
+                  <p class="text-xs text-gray-500">Lanjutan</p>
+                </div>
+                <span class="font-bold text-blue-600">850 XP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal -->
+    <div
+      id="materiModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 shadow-2xl">
+        <h3 class="text-xl font-bold text-gray-900 mb-2" id="modalTitle">
+          Mulai Belajar
+        </h3>
+        <p class="text-gray-600 mb-6">
+          Anda akan mendapatkan 100 XP untuk setiap materi yang diselesaikan.
+        </p>
+        <div class="flex space-x-3">
+          <button
+            onclick="closeModal()"
+            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium"
+          >
+            Batal
+          </button>
+          <button
+            onclick="completeMateri()"
+            class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            Mulai
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

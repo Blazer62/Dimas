@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materi Belajar - LearnHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white border-r border-gray-200 flex flex-col">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-200">
+          <h1 class="text-2xl font-bold text-blue-600">LearnHub</h1>
+          <p class="text-xs text-gray-500 mt-1">Platform Pembelajaran</p>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 px-4 py-6 space-y-2">
+          <a
+            href="dashboard.html"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 4h4"
+              ></path>
+            </svg>
+            Dashboard
+          </a>
+          <a
+            href="materi.html"
+            class="nav-link nav-link-active flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17s4.5 10.747 10 10.747c5.5 0 10-4.998 10-10.747 0-5.002-4.5-10.747-10-10.747z"
+              ></path>
+            </svg>
+            Materi Belajar
+          </a>
+          <a
+            href="portofolio.html"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+            Portofolio
+          </a>
+          <a
+            href="#"
+            class="nav-link flex items-center px-4 py-3 rounded-lg font-medium text-gray-700 hover:bg-blue-50 transition"
+            onclick="toggleDarkMode()"
+          >
+            <svg
+              class="w-5 h-5 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+            Dark Mode
+          </a>
+        </nav>
+
+        <!-- User Profile -->
+        <div class="border-t border-gray-200 p-4">
+          <div class="flex items-center">
+            <input
+              type="file"
+              id="profileImageInput"
+              accept="image/*"
+              class="hidden"
+              onchange="changeProfilePicture()"
+            />
+            <div
+              id="userAvatarContainer"
+              class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold cursor-pointer hover:opacity-80 transition overflow-hidden"
+              onclick="document.getElementById('profileImageInput').click()"
+              title="Klik untuk ubah foto profil"
+            >
+              <img
+                id="profileImage"
+                src=""
+                alt="Profile"
+                class="hidden w-full h-full object-cover"
+              />
+              <span id="userInitial">G</span>
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <p
+                class="text-sm font-semibold text-gray-900 truncate"
+                id="userNameDisplay"
+              >
+                Gusti Rizky
+              </p>
+              <button
+                onclick="logout()"
+                class="text-xs text-gray-500 hover:text-red-600 transition font-medium"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-auto">
+        <!-- Top Bar -->
+        <div
+          class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center"
+        >
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900">Materi Belajar</h2>
+            <p class="text-sm text-gray-500 mt-1">
+              Pilih materi yang ingin dipelajari
+            </p>
+          </div>
+          <div class="flex items-center space-x-4">
+            <input
+              type="text"
+              id="searchMateri"
+              placeholder="Cari materi..."
+              class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+            <div class="w-10 h-10 rounded-full bg-gray-200"></div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8">
+          <!-- Filter Tabs -->
+          <div class="flex space-x-4 mb-8 border-b border-gray-200">
+            <button
+              class="filter-btn pb-3 text-gray-600 hover:text-blue-600 border-b-2 border-transparent font-medium transition"
+              data-filter="all"
+            >
+              Semua Materi
+            </button>
+            <button
+              class="filter-btn pb-3 text-gray-600 hover:text-blue-600 border-b-2 border-transparent font-medium transition"
+              data-filter="pemula"
+            >
+              Pemula
+            </button>
+            <button
+              class="filter-btn pb-3 text-gray-600 hover:text-blue-600 border-b-2 border-transparent font-medium transition"
+              data-filter="menengah"
+            >
+              Menengah
+            </button>
+            <button
+              class="filter-btn pb-3 text-gray-600 hover:text-blue-600 border-b-2 border-transparent font-medium transition"
+              data-filter="lanjutan"
+            >
+              Lanjutan
+            </button>
+          </div>
+
+          <!-- Materials Grid -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-6"
+            id="materiContainer"
+          >
+            <!-- Materials akan dimuat dari JavaScript -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Detail Modal -->
+    <div
+      id="detailModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+    >
+      <div
+        class="bg-white rounded-xl max-w-2xl w-full max-h-screen overflow-y-auto shadow-2xl"
+      >
+        <!-- Video Container -->
+        <div class="w-full h-64 bg-gray-900 flex items-center justify-center">
+          <div class="text-white text-center">
+            <svg
+              class="w-16 h-16 mx-auto mb-2 opacity-50"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+            <p>Video Pembelajaran</p>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2" id="detailTitle">
+            Judul Materi
+          </h2>
+          <p class="text-gray-600 mb-6" id="detailDescription">Deskripsi</p>
+
+          <!-- Info -->
+          <div class="grid grid-cols-3 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+            <div>
+              <p class="text-xs text-gray-500 font-semibold">Durasi</p>
+              <p class="text-lg font-bold text-gray-900" id="detailDuration">
+                30 menit
+              </p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 font-semibold">Level</p>
+              <p class="text-lg font-bold text-gray-900" id="detailLevel">
+                Pemula
+              </p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 font-semibold">Reward XP</p>
+              <p class="text-lg font-bold text-blue-600" id="detailXP">100</p>
+            </div>
+          </div>
+
+          <!-- Materi Content -->
+          <div class="mb-6 space-y-4">
+            <h3 class="font-bold text-gray-900">Konten Materi</h3>
+            <ul id="materiContent" class="space-y-3 text-gray-700">
+              <!-- Content items akan dimuat dari JavaScript -->
+            </ul>
+          </div>
+
+          <!-- Quiz Section -->
+          <div
+            id="quizSection"
+            class="mb-6 space-y-4 p-4 bg-blue-50 rounded-lg border border-blue-200"
+          >
+            <h3 class="font-bold text-gray-900 flex items-center">
+              <span class="text-lg mr-2">Kuis Materi</span>
+              <span class="text-xs bg-blue-600 text-white px-2 py-1 rounded"
+                >Wajib</span
+              >
+            </h3>
+            <div id="quizContainer" class="space-y-4">
+              <!-- Quiz akan dimuat dari JavaScript -->
+            </div>
+            <button
+              onclick="submitQuiz()"
+              class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-medium text-sm"
+              id="submitQuizBtn"
+            >
+              Kirim Jawaban
+            </button>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex space-x-3">
+            <button
+              onclick="closeDetailModal()"
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition font-medium"
+            >
+              Tutup
+            </button>
+            <button
+              onclick="completeMateriDetail()"
+              class="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+            >
+              Selesaikan & Dapatkan XP
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+      // Sample materials data
+      const materialsData = [
+        {
+          id: 1,
+          title: "Pengenalan HTML",
+          description: "Pelajari struktur dasar HTML untuk membuat halaman web",
+          level: "pemula",
+          duration: "30 menit",
+          xp: 100,
+          content: [
+            "Apa itu HTML dan kegunaannya",
+            "Struktur dasar dokumen HTML",
+            "Tag-tag umum HTML",
+            "Praktik membuat halaman sederhana",
+          ],
+        },
+        {
+          id: 2,
+          title: "CSS untuk Styling",
+          description: "Desain website dengan CSS modern dan responsif",
+          level: "pemula",
+          duration: "45 menit",
+          xp: 100,
+          content: [
+            "Selector CSS dan property",
+            "Box Model dalam CSS",
+            "Flexbox layout",
+            "CSS Grid dasar",
+          ],
+        },
+        {
+          id: 3,
+          title: "JavaScript Fundamentals",
+          description: "Kuasai dasar-dasar programming JavaScript",
+          level: "menengah",
+          duration: "60 menit",
+          xp: 150,
+          content: [
+            "Variabel dan tipe data",
+            "Operator dan kondisional",
+            "Perulangan dan fungsi",
+            "DOM manipulation",
+          ],
+        },
+        {
+          id: 4,
+          title: "Tailwind CSS Advanced",
+          description: "Teknik lanjutan menggunakan Tailwind CSS",
+          level: "menengah",
+          duration: "50 menit",
+          xp: 150,
+          content: [
+            "Custom configuration",
+            "Responsive design utilities",
+            "Animation dan transitions",
+            "Best practices Tailwind",
+          ],
+        },
+        {
+          id: 5,
+          title: "Responsive Web Design",
+          description: "Buat website yang sempurna di semua ukuran perangkat",
+          level: "menengah",
+          duration: "55 menit",
+          xp: 150,
+          content: [
+            "Mobile-first approach",
+            "Media queries",
+            "Flexible grids",
+            "Testing responsiveness",
+          ],
+        },
+        {
+          id: 6,
+          title: "Web Performance",
+          description:
+            "Optimasi performa website untuk pengalaman user terbaik",
+          level: "lanjutan",
+          duration: "75 menit",
+          xp: 200,
+          content: [
+            "Optimization teknik",
+            "Caching strategy",
+            "Compression methods",
+            "Performance monitoring",
+          ],
+        },
+      ];
+
+      let currentFilter = "all";
+
+      // Render materials
+      function renderMaterials() {
+        const container = document.getElementById("materiContainer");
+        const filtered =
+          currentFilter === "all"
+            ? materialsData
+            : materialsData.filter((m) => m.level === currentFilter);
+
+        container.innerHTML = filtered
+          .map(
+            (materi) => `
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition cursor-pointer" onclick="openDetailModal(${materi.id})">
+                    <div class="h-40 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-gray-900 flex-1">${materi.title}</h3>
+                            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded font-medium whitespace-nowrap ml-2">
+                                ${materi.level.charAt(0).toUpperCase() + materi.level.slice(1)}
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">${materi.description}</p>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span>${materi.duration}</span>
+                            <span class="font-bold text-blue-600">+${materi.xp} XP</span>
+                        </div>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function openDetailModal(id) {
+        const materi = materialsData.find((m) => m.id === id);
+        document.getElementById("detailTitle").innerText = materi.title;
+        document.getElementById("detailDescription").innerText =
+          materi.description;
+        document.getElementById("detailDuration").innerText = materi.duration;
+        document.getElementById("detailLevel").innerText =
+          materi.level.charAt(0).toUpperCase() + materi.level.slice(1);
+        document.getElementById("detailXP").innerText = materi.xp;
+        document.getElementById("materiContent").innerHTML = materi.content
+          .map(
+            (item) =>
+              `<li class="flex items-start"><span class="mr-3">•</span><span>${item}</span></li>`,
+          )
+          .join("");
+
+        // Load quiz for this material
+        loadQuiz(id);
+
+        document.getElementById("detailModal").classList.remove("hidden");
+      }
+
+      function closeDetailModal() {
+        document.getElementById("detailModal").classList.add("hidden");
+      }
+
+      function completeMateriDetail() {
+        const stats = getUserStats();
+        const materiTitle = document.getElementById("detailTitle").innerText;
+        const xpReward = parseInt(
+          document.getElementById("detailXP").innerText,
+        );
+
+        addXP(xpReward);
+        stats.materiSelesai += 1;
+        if (!stats.completedMaterials.includes(materiTitle)) {
+          stats.completedMaterials.push(materiTitle);
+        }
+
+        checkBadges(stats);
+        saveUserStats(stats);
+        closeDetailModal();
+
+        showNotification(
+          `Materi "${materiTitle}" selesai! +${xpReward} XP`,
+          "success",
+        );
+      }
+
+      // Filter
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          document.querySelectorAll(".filter-btn").forEach((b) => {
+            b.classList.remove("text-blue-600", "border-blue-600");
+            b.classList.add("text-gray-600", "border-transparent");
+          });
+          e.target.classList.add("text-blue-600", "border-blue-600");
+          e.target.classList.remove("text-gray-600", "border-transparent");
+          currentFilter = e.target.dataset.filter;
+          renderMaterials();
+        });
+      });
+
+      // Initial render
+      document
+        .querySelector(".filter-btn")
+        .classList.add("text-blue-600", "border-blue-600");
+      document
+        .querySelector(".filter-btn")
+        .classList.remove("text-gray-600", "border-transparent");
+      renderMaterials();
+    </script>
+  </body>
+</html>
